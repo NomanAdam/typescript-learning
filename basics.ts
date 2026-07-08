@@ -57,3 +57,102 @@ console.log(
   batteryRange: 350,
  }),
 );
+
+type PaymentMethod = "card" | "cash" | "paypal";
+
+function processPayment(method: PaymentMethod): string {
+ return `"Processing payment via "${method}`;
+}
+console.log(processPayment("card"));
+
+interface UserData {
+ id: string;
+ username: string;
+ email: string;
+ isActive: boolean;
+ phoneNumber: null;
+ role: UserRole;
+}
+enum UserRole {
+ Admin = "admin",
+}
+let data: UserData = {
+ id: "usr_98231",
+ username: "dev_jay",
+ email: "jay@example.com",
+ role: UserRole.Admin,
+ isActive: true,
+ phoneNumber: null,
+};
+
+let headphones: HeadphonesData = {
+ id: 104,
+ title: "Wireless Noise-Canceling Headphones",
+ price: 199.99,
+ tags: ["electronics", "audio", "wireless"],
+ dimensions: {
+  width: 18.5,
+  height: 20.0,
+  depth: 8.0,
+ },
+ rating: {
+  score: 4.7,
+  count: 128,
+ },
+ status: "in_stock",
+};
+
+type HeadphonesData = {
+ id: number;
+ title: string;
+ price: number;
+ tags: [string, string, string];
+ dimensions: {
+  width: number;
+  height: number;
+  depth: number;
+ };
+ rating: {
+  score: number;
+  count: number;
+ };
+ status: string;
+};
+type Cat = { kind: "cat"; meow: () => void };
+type Dog = { kind: "dog"; bark: () => void };
+type Pet = Cat | Dog;
+
+function describePet(pet: Pet): string {
+ if (pet.kind === "cat") {
+  return "Meow!";
+ } else {
+  return "Woof!";
+ }
+}
+console.log(
+ console.log(
+  describePet({ kind: "dog", bark: () => console.log("bark sound") }),
+ ),
+);
+
+function wrapInArray<T>(item: T): T[] {
+ return [item];
+}
+console.log(wrapInArray(5));
+console.log(wrapInArray("hi"));
+
+interface Task {
+ id: number;
+ title: string;
+ completed: boolean;
+}
+interface ApiResponse<T> {
+ data: T;
+ success: boolean;
+ message: string;
+}
+let taskResponse: ApiResponse<Task> = {
+ data: { id: 2343, title: "Title", completed: true },
+ success: true,
+ message: "Task Fetched",
+};
