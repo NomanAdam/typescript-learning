@@ -156,3 +156,32 @@ let taskResponse: ApiResponse<Task> = {
  success: true,
  message: "Task Fetched",
 };
+//Array methods
+interface Task {
+ id: number;
+ title: string;
+ completed: boolean;
+}
+
+const tasks: Task[] = [
+ { id: 1, title: "Learn TS", completed: true },
+ { id: 2, title: "Build TaskFlow", completed: false },
+ { id: 3, title: "Apply to jobs", completed: true },
+];
+
+function getCompletedTasks(tasks: Task[]): Task[] {
+ return tasks.filter((task) => {
+  return task.completed;
+ });
+}
+console.log(getCompletedTasks(tasks));
+
+function countCompletedTasks(tasks: Task[]): number {
+ return tasks.reduce((accumulator, task) => {
+  if (task.completed) {
+   return accumulator + 1;
+  }
+  return accumulator;
+ }, 0);
+}
+console.log(countCompletedTasks(tasks));
