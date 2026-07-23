@@ -1,10 +1,13 @@
+import { useState } from "react";
+
 interface ButtonProps {
  label: string;
  onClick: () => void;
  disabled?: boolean;
 }
-const [count, setCount] = useState<number>(0);
-export default function practice({ label, onClick, disabled }: ButtonProps) {
+
+export default function Practice({ label, onClick, disabled }: ButtonProps) {
+ const [count, setCount] = useState<number>(0);
  return (
   <button onClick={onClick} disabled={disabled}>
    {label}

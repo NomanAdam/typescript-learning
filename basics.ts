@@ -10,13 +10,24 @@ let isLoggedIn: boolean = false;
 let id: number = 22;
 let tags: string[] = ["a", "b"];
 console.log(id);
+let coords: [number, number] = [10, 20]; // tuple - fixed length/order
+
+let a: any = "Hello";
+a.toUpperCase(); // ✅ Allowed (unsafe)
+
+// unkown ==>	safer version of any, forces you to check first
+let b: unknown = "Hello";
+// b.toUpperCase(); // ❌ Error (must check first)
+
 function calculateArea(w: number, h: number): number {
  return w * h;
 }
 function CalculateArea(w: number, h?: number): number {
  return w * (h ?? w);
 }
-
+//Type Alias --a nickname for a shape
+// Type Aliases allow defining types with a custom name (an Alias).
+// Type Aliases can be used for primitives like string or more complex types such as objects and arrays:
 type Car = {
  brand: string;
  model: string;
@@ -35,7 +46,7 @@ console.log(
   isElectric: true,
  }),
 );
-
+//Interfaces are similar to type aliases, except they only apply to object types.
 interface Car2 {
  brand: string;
  model: string;
@@ -45,9 +56,11 @@ interface Car2 {
 interface electricCar extends Car2 {
  batteryRange: number;
 }
+//Both can be extended, but interfaces support declaration merging
 function printElectricCarInfo(car: electricCar): string {
  return `${car.year}${car.brand}${car.model}-${car.batteryRange}mi range`;
 }
+// Use Interface for:React props, object/class shapes
 console.log(
  printElectricCarInfo({
   brand: "Honda",
@@ -57,9 +70,13 @@ console.log(
   batteryRange: 350,
  }),
 );
-
+// Use type for: 	functions, unions, primitives and intersections
 type PaymentMethod = "card" | "cash" | "paypal";
-
+type User = {
+ name: string;
+};
+// Intersection =="this AND that" combined
+type Admin = User & { role: string };
 function processPayment(method: PaymentMethod): string {
  return `"Processing payment via "${method}`;
 }
@@ -73,6 +90,7 @@ interface UserData {
  phoneNumber: null;
  role: UserRole;
 }
+//enum ==	named set of constants
 enum UserRole {
  Admin = "admin",
 }
@@ -121,7 +139,8 @@ type HeadphonesData = {
 type Cat = { kind: "cat"; meow: () => void };
 type Dog = { kind: "dog"; bark: () => void };
 type Pet = Cat | Dog;
-
+//Type inference ==>	TS guesses the type without you writing one
+let x = 5;
 function describePet(pet: Pet): string {
  if (pet.kind === "cat") {
   return "Meow!";
@@ -134,7 +153,7 @@ console.log(
   describePet({ kind: "dog", bark: () => console.log("bark sound") }),
  ),
 );
-
+//Generics= 	Reusable code that works across types, keeping type info
 function wrapInArray<T>(item: T): T[] {
  return [item];
 }
@@ -185,3 +204,11 @@ function countCompletedTasks(tasks: Task[]): number {
  }, 0);
 }
 console.log(countCompletedTasks(tasks));
+//Type assertion ==>	"trust me, I know the type"
+const el = document.getElementById("x") as HTMLInputElement;
+// Type assertion (as) = Tell TypeScript to treat a value as a specific type. It only affects compile-time, not runtime.
+
+function generic<T>(arr: T[]): T | undefined {
+ return arr.pop();
+}
+console.log(generic([1, 2, 3, 4]));
